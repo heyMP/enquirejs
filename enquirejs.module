@@ -16,7 +16,7 @@ function enquirejs_init() {
 /**
  * Wrapper to get the library so it works with install profiles.
  */
-function enquirejs_get_library($file = 'js/index.js') {
+function enquirejs_get_library($file = 'enquire.js') {
   // account for libraries not being available on install
   if (function_exists('libraries_get_libraries')) {
     $libraries = libraries_get_libraries();
