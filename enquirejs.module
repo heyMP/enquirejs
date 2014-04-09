@@ -1,6 +1,7 @@
 <?php
 // enquirejs global variables
 define('ENQUIREJS_URL', 'http://wicky.nillia.ms/enquire.js/');
+
 /**
  * Implements hook_init().
  */
@@ -15,26 +16,25 @@ function enquirejs_init() {
 /**
  * Wrapper to get the library so it works with install profiles.
  */
-function enquirejs_get_library() {
+function enquirejs_get_library($file = 'js/index.js') {
   // account for libraries not being available on install
   if (function_exists('libraries_get_libraries')) {
     $libraries = libraries_get_libraries();
     if (isset($libraries['enquirejs'])) {
-      return $libraries['enquirejs'] .'/enquire.js';
+      return $libraries['enquirejs'] . '/' . $file;
     }
   }
   else {
     $directory = 'libraries';
     $profile = drupal_get_profile();
     $config = conf_path();
-    $lib = 'enquirejs/quo.js';
+    $lib = 'enquirejs/' . $file;
     // look in install profile
     if (file_exists("profiles/$profile/$directory/$lib")) {
       return "profiles/$profile/$directory/$lib";
     }
     // look in sites all
     // Always search sites/all/*.
-    $searchdir[] = 'sites/all/' . $directory ;
     if (file_exists("sites/all/$directory/$lib")) {
       return "sites/all/$directory/$lib";
     }
@@ -46,3 +46,4 @@ function enquirejs_get_library() {
   }
   return FALSE;
 }
+
